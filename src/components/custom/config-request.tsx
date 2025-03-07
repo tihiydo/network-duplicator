@@ -30,20 +30,18 @@ type RequestProps = {
 };
 
 const FormSchema = z.object({
-  count: z.number().min(1, {
+  count: z.coerce.number().min(1, {
     message: "Count must be at least 1.",
   }),
-  steps: z.number().min(1, {
+  steps: z.coerce.number().min(1, {
     message: "Steps must be at least 1.",
   }),
-  url: z.string().min(2, {
-    message: "URL must be at least 2 characters.",
+  url: z.string().min(4, {
+    message: "URL must be at least 4 characters.",
   }),
-  headers: z.string().min(2, {
-    message: "Headers must be at least 2 characters.",
-  }),
-  method: z.string().min(2, {
-    message: "Method must be at least 2 characters.",
+  headers: z.string(),
+  method: z.enum(["GET", "HEAD", "POST", "PUT", "DELETE"], {
+    message: "Please select a valid HTTP method.",
   }),
   payload: z.string().min(2, {
     message: "Payload must be at least 2 characters.",
@@ -58,7 +56,12 @@ const ConfigRequest = ({ request, onDuplicate }: RequestProps) => {
       steps: 1,
       count: 3,
       headers: JSON.stringify(request?.request.headers, null, 2),
-      method: request?.request.method,
+      method: request?.request.method as
+        | "GET"
+        | "HEAD"
+        | "POST"
+        | "PUT"
+        | "DELETE",
       payload: request?.request.postData?.text
         ? JSON.stringify(JSON.parse(request?.request.postData.text), null, 2)
         : "{}",
