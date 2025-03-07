@@ -1,0 +1,6 @@
+{
+    "watch": ["src", "public", "vite.config.ts", "index.html"],
+    "ignore": ["node_modules", "dist"],
+    "ext": "ts,tsx,js,jsx,json,css,html,svg",
+    "exec": "yarn run build"
+  }
