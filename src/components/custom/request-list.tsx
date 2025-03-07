@@ -8,8 +8,6 @@ import {
   TableHeader,
   TableRow,
 } from "../ui/table";
-import { Button } from "../ui/button";
-import { Trash2 } from "lucide-react";
 
 type RequestListProps = {
   requests: chrome.devtools.network.Request[];
@@ -19,11 +17,6 @@ type RequestListProps = {
 const RequestList = ({ requests, onRequestClick }: RequestListProps) => {
   return (
     <Table className="h-full">
-      <div>
-        <Button>
-          <Trash2></Trash2>
-        </Button>
-      </div>
       <TableHeader>
         <TableRow>
           <TableHead>URL</TableHead>
